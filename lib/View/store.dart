@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shoe_store/Widgets/category_tile.dart';
+import 'package:shoe_store/Widgets/shoe_tile.dart';
 
 class Store extends StatelessWidget {
   const Store({super.key});
@@ -28,7 +29,7 @@ class Store extends StatelessWidget {
                     width: 32,
                     decoration: BoxDecoration(
                       image: const DecorationImage(
-                        image: AssetImage("assets/me.jpg"),
+                        image: AssetImage("assets/images/me.jpg"),
                         filterQuality: FilterQuality.high,
                       ),
                       borderRadius: BorderRadius.circular(1000),
@@ -36,7 +37,7 @@ class Store extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 50),
+              const SizedBox(height: 40),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -84,6 +85,8 @@ class Store extends StatelessWidget {
                 padding: const EdgeInsets.only(left: 10),
                 child: const CategoryTile(),
               ),
+              const SizedBox(height: 15),
+              const ShoeTile(),
             ],
           ),
         ),

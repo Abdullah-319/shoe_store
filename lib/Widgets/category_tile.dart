@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:shoe_store/Data/categories.dart';
+import 'package:shoe_store/Data/data.dart';
 
 class CategoryTile extends StatefulWidget {
   const CategoryTile({super.key});
@@ -46,11 +46,12 @@ class _CategoryTileState extends State<CategoryTile> {
                 ),
                 child: Row(
                   children: [
-                    const SizedBox(
+                    const  SizedBox(
                       width: 35,
                       height: 35,
                       child: Image(
-                        image: AssetImage("assets/shoe.png"),
+                        image: AssetImage("assets/images/shoe3.png" ),
+                        
                         filterQuality: FilterQuality.high,
                       ),
                     ),
