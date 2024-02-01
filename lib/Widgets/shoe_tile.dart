@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shoe_store/Data/data.dart';
+import 'package:shoe_store/View/shoe_detail.dart';
 
 class ShoeTile extends StatefulWidget {
   const ShoeTile({super.key});
@@ -8,6 +9,8 @@ class ShoeTile extends StatefulWidget {
   @override
   State<ShoeTile> createState() => _ShoeTileState();
 }
+
+IconData likeIcon = Icons.favorite_border;
 
 class _ShoeTileState extends State<ShoeTile> {
   @override
@@ -17,7 +20,7 @@ class _ShoeTileState extends State<ShoeTile> {
         width: double.infinity,
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: 3,
+          itemCount: shoes.length,
           itemBuilder: (context, index) {
             return Container(
               padding: const EdgeInsets.only(left: 30),
@@ -25,18 +28,49 @@ class _ShoeTileState extends State<ShoeTile> {
                 constraints: const BoxConstraints(
                     maxHeight: 250,
                     minHeight: 250,
-                    maxWidth: 150,
-                    minWidth: 150),
+                    maxWidth: 180,
+                    minWidth: 180),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Icon(Icons.favorite_border),
-                    SizedBox(
-                      width: 150,
-                      height: 150,
-                      child: Image.asset(
-                        "assets/images/shoe.png",
-                        filterQuality: FilterQuality.high,
+                    GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            if (!favShoes.contains(shoes[index])) {
+                              shoes[index].liked = true;
+                              favShoes.add(shoes[index]);
+                              likeIcon = Icons.favorite;
+                            } else {
+                              shoes[index].liked = false;
+                              favShoes.remove(shoes[index]);
+                              likeIcon = Icons.favorite_border;
+                            }
+                            // shoes[index].liked = !(shoes[index].liked);
+                          });
+                        },
+                        child: Icon(
+                          likeIcon,
+                          color: Colors.grey,
+                        )),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.of(context)
+                            .push(MaterialPageRoute(builder: (ctx) {
+                          return ShoeDetail(
+                            shoe: shoes[index],
+                          );
+                        }));
+                      },
+                      child: SizedBox(
+                        width: 180,
+                        height: 180,
+                        child: Hero(
+                          tag: shoes[index].id,
+                          child: Image.asset(
+                            "assets/images/shoe.png",
+                            filterQuality: FilterQuality.high,
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -44,7 +78,7 @@ class _ShoeTileState extends State<ShoeTile> {
                       child: Column(
                         children: [
                           Text(
-                           shoes[index].title,
+                            shoes[index].title,
                             style: GoogleFonts.poppins(
                               fontWeight: FontWeight.bold,
                               fontSize: 16,
@@ -72,7 +106,7 @@ class _ShoeTileState extends State<ShoeTile> {
                                 ),
                               ),
                               Text(
-                                "240.0",
+                                shoes[index].price.toString(),
                                 style: GoogleFonts.poppins(
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,

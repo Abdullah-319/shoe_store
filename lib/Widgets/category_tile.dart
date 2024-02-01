@@ -2,8 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shoe_store/Data/data.dart';
 
+// ignore: must_be_immutable
 class CategoryTile extends StatefulWidget {
-  const CategoryTile({super.key});
+  CategoryTile({super.key, required this.showText, this.icon});
+
+  final bool showText;
+
+  IconData? icon;
 
   @override
   State<CategoryTile> createState() => _CategoryTileState();
@@ -46,21 +51,21 @@ class _CategoryTileState extends State<CategoryTile> {
                 ),
                 child: Row(
                   children: [
-                    const  SizedBox(
+                      SizedBox(
                       width: 35,
                       height: 35,
-                      child: Image(
+                      child: widget.icon == null ? const Image(
                         image: AssetImage("assets/images/shoe3.png" ),
                         
                         filterQuality: FilterQuality.high,
-                      ),
+                      ) : Icon(widget.icon, color: Colors.grey.shade400,),
                     ),
-                    Text(
+                    widget.showText ? Text(
                       categories[index],
                       style: GoogleFonts.poppins(
                         fontWeight: FontWeight.bold,
                       ),
-                    ),
+                    ) : Container(),
                   ],
                 ),
               ),

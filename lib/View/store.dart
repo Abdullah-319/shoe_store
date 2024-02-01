@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shoe_store/Widgets/bottom_nav.dart';
 import 'package:shoe_store/Widgets/category_tile.dart';
 import 'package:shoe_store/Widgets/shoe_tile.dart';
 
@@ -37,7 +38,7 @@ class Store extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: 25),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -83,14 +84,15 @@ class Store extends StatelessWidget {
               const SizedBox(height: 15),
               Container(
                 padding: const EdgeInsets.only(left: 10),
-                child: const CategoryTile(),
+                child:  CategoryTile(showText: true),
               ),
-              const SizedBox(height: 15),
+              const SizedBox(height: 30),
               const ShoeTile(),
             ],
           ),
         ),
       ),
+      bottomNavigationBar: const BottomNav(),
     );
   }
 }
