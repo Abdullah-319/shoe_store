@@ -83,7 +83,7 @@ class Cart extends StatelessWidget {
                 itemCount: shoes.length,
                 itemBuilder: (context, index) {
                   return Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    padding: const EdgeInsets.symmetric(horizontal: 30),
                     height: 100,
                     width: double.infinity,
                     child: Row(

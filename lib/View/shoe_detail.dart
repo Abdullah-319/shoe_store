@@ -29,19 +29,18 @@ class _ShoeDetailState extends State<ShoeDetail> {
             child: GestureDetector(
               onTap: () {
                 setState(() {
-                  if (!favShoes.contains(widget.shoe)) {
-                    widget.shoe.liked = true;
+                  if (favShoes.where((element) => element.id == widget.shoe.id).toList().isEmpty) {
                     favShoes.add(widget.shoe);
-                    likeIcon = Icons.favorite;
                   } else {
-                    widget.shoe.liked = false;
                     favShoes.remove(widget.shoe);
-                    likeIcon = Icons.favorite_border;
                   }
                 });
               },
-              child: Icon(
-                likeIcon,
+              child:  Icon(
+                favShoes
+                    .where((element) => element.id == widget.shoe.id)
+                    .toList()
+                    .isEmpty?Icons.favorite_border:Icons.favorite,
                 size: 26,
                 color: Colors.grey,
               ),
