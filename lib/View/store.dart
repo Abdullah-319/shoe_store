@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shoe_store/View/cart.dart';
-import 'package:shoe_store/Widgets/main_page.dart';
+import 'package:shoe_store/View/main_page.dart';
 
 class Store extends StatefulWidget {
   const Store({super.key});
@@ -32,6 +32,7 @@ class _StoreState extends State<Store> {
           child: body,
         ),
         bottomNavigationBar: BottomNavigationBar(
+          iconSize: 24,
           showSelectedLabels: false,
           showUnselectedLabels: false,
           selectedItemColor: Colors.white,

@@ -51,21 +51,29 @@ class _CategoryTileState extends State<CategoryTile> {
                 ),
                 child: Row(
                   children: [
-                      SizedBox(
+                    SizedBox(
                       width: 35,
                       height: 35,
-                      child: widget.icon == null ? const Image(
-                        image: AssetImage("assets/images/shoe3.png" ),
-                        
-                        filterQuality: FilterQuality.high,
-                      ) : Icon(widget.icon, color: Colors.grey.shade400,),
+                      child: widget.icon == null
+                          ? Image(
+                              image: AssetImage(
+                                  "assets/images/category$index.png"),
+                              filterQuality: FilterQuality.high,
+                            )
+                          : Icon(
+                              widget.icon,
+                              color: Colors.grey.shade400,
+                            ),
                     ),
-                    widget.showText ? Text(
-                      categories[index],
-                      style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ) : Container(),
+                    const SizedBox(width: 5),
+                    widget.showText
+                        ? Text(
+                            categories[index],
+                            style: GoogleFonts.poppins(
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )
+                        : Container(),
                   ],
                 ),
               ),

@@ -3,6 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shoe_store/Data/data.dart';
 import 'package:shoe_store/Model/shoe.dart';
+import 'package:shoe_store/View/shoe_detail.dart';
 
 class Cart extends StatelessWidget {
   const Cart({super.key});
@@ -74,8 +75,8 @@ class Cart extends StatelessWidget {
             const SizedBox(height: 25),
             ConstrainedBox(
               constraints: const BoxConstraints(
-                  maxHeight: 350,
-                  minHeight: 350,
+                  maxHeight: 280,
+                  minHeight: 280,
                   maxWidth: double.infinity,
                   minWidth: double.infinity),
               child: ListView.builder(
@@ -83,19 +84,30 @@ class Cart extends StatelessWidget {
                 itemCount: shoes.length,
                 itemBuilder: (context, index) {
                   return Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 30),
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
                     height: 100,
                     width: double.infinity,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                    child: ListView(
+                      scrollDirection: Axis.horizontal,
                       children: [
-                        SizedBox(
-                          height: 90,
-                          width: 90,
-                          child: Image.asset(
-                            "assets/images/shoe.png",
-                            filterQuality: FilterQuality.high,
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) {
+                                return ShoeDetail(shoe: shoes[index]);
+                              },
+                            ));
+                          },
+                          child: SizedBox(
+                            height: 90,
+                            width: 90,
+                            child: Hero(
+                              tag: shoes[index].id,
+                              child: Image.asset(
+                                "assets/images/shoe.png",
+                                filterQuality: FilterQuality.high,
+                              ),
+                            ),
                           ),
                         ),
                         const SizedBox(width: 25),
