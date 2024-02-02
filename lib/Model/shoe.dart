@@ -9,7 +9,7 @@ class Shoe {
   final int size;
   bool liked;
 
-  Shoe( {
+  Shoe({
     required this.id,
     required this.title,
     required this.description,
@@ -18,4 +18,14 @@ class Shoe {
     required this.size,
     required this.liked,
   });
+
+  static double getTotalPrice(List<Shoe> shoes) {
+    double total = 0;
+
+    for (var shoe in shoes) {
+      total += shoe.price;
+    }
+
+    return total;
+  }
 }
