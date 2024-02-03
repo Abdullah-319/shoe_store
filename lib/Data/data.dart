@@ -51,4 +51,4 @@ final List<Color> colors = [
   Colors.cyan,
 ];
 
-final List<Shoe> favShoes = [];
+List<Shoe> favShoes = [];

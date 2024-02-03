@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoe_store/Data/data.dart';
+import 'package:shoe_store/Model/shoe.dart';
 import 'package:shoe_store/View/shoe_detail.dart';
 
 class ShoeTile extends StatefulWidget {
@@ -13,6 +17,34 @@ class ShoeTile extends StatefulWidget {
 IconData likeIcon = Icons.favorite_border;
 
 class _ShoeTileState extends State<ShoeTile> {
+  late SharedPreferences sp;
+
+  getSharedPreferences() async {
+    sp = await SharedPreferences.getInstance();
+    readFromSp();
+  }
+
+  saveIntoSp() {
+    List<String> favList =
+        favShoes.map((shoe) => jsonEncode(shoe.toJson())).toList();
+    sp.setStringList("Data", favList);
+  }
+
+  readFromSp() {
+    List<String>? favList = sp.getStringList("Data");
+
+    favShoes =
+        favList!.map((shoe) => Shoe.fromJson(json.decode(shoe))).toList();
+
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    getSharedPreferences();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -38,8 +70,10 @@ class _ShoeTileState extends State<ShoeTile> {
                               .toList()
                               .isEmpty) {
                             favShoes.add(shoes[index]);
+                            saveIntoSp();
                           } else {
                             favShoes.remove(shoes[index]);
+                            saveIntoSp();
                           }
                           // shoes[index].liked = !(shoes[index].liked);
                         });

@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shoe_store/Data/data.dart';
 import 'package:shoe_store/Model/shoe.dart';
 import 'package:shoe_store/Widgets/category_tile.dart';
@@ -19,6 +22,34 @@ class ShoeDetail extends StatefulWidget {
 IconData likeIcon = Icons.favorite_border;
 
 class _ShoeDetailState extends State<ShoeDetail> {
+  late SharedPreferences sp;
+
+  getSharedPreferences() async {
+    sp = await SharedPreferences.getInstance();
+    readFromSp();
+  }
+
+  saveIntoSp() {
+    List<String> favList =
+        favShoes.map((shoe) => jsonEncode(shoe.toJson())).toList();
+    sp.setStringList("Data", favList);
+  }
+
+  readFromSp() {
+    List<String>? favList = sp.getStringList("Data");
+
+    favShoes =
+        favList!.map((shoe) => Shoe.fromJson(json.decode(shoe))).toList();
+
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    getSharedPreferences();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,20 +60,30 @@ class _ShoeDetailState extends State<ShoeDetail> {
             child: GestureDetector(
               onTap: () {
                 setState(() {
-                  if (favShoes.where((element) => element.id == widget.shoe.id).toList().isEmpty) {
+                  if (favShoes
+                      .where((element) => element.id == widget.shoe.id)
+                      .toList()
+                      .isEmpty) {
                     favShoes.add(widget.shoe);
                   } else {
                     favShoes.remove(widget.shoe);
                   }
                 });
               },
-              child:  Icon(
-                favShoes
-                    .where((element) => element.id == widget.shoe.id)
-                    .toList()
-                    .isEmpty?Icons.favorite_border:Icons.favorite,
-                size: 26,
-                color: Colors.grey,
+              child: GestureDetector(
+                onTap: () {
+                  saveIntoSp();
+                },
+                child: Icon(
+                  favShoes
+                          .where((element) => element.id == widget.shoe.id)
+                          .toList()
+                          .isEmpty
+                      ? Icons.favorite_border
+                      : Icons.favorite,
+                  size: 26,
+                  color: Colors.grey,
+                ),
               ),
             ),
           ),

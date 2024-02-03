@@ -28,4 +28,24 @@ class Shoe {
 
     return total;
   }
+
+  factory Shoe.fromJson(Map<String, dynamic> json) => Shoe(
+        id: json["id"],
+        title: json["title"],
+        description: json["description"],
+        price: json["price"],
+        color: json["color"],
+        size: json["size"],
+        liked: json["liked"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "title": title,
+        "description": description,
+        "price": price,
+        "color": color,
+        "size": size,
+        "liked": liked,
+      };
 }
